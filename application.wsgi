@@ -1,10 +1,11 @@
+from werkzeug import Request
+
 def application(environ, start_response):
 	status = '200 OK' 
 
-	log=""     
-	for key in environ:
-		log=log+key+": "+str(environ[key])+"\n"			
-
+	request = Request(environ)
+	log=str(request.headers)     
+	
 	response_headers = [('Content-type', 'text/plain')]
 	start_response(status, response_headers)
 
