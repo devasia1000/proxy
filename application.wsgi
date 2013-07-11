@@ -19,8 +19,8 @@ def application(environ, start_response):
 	resp=urllib2.urlopen(req)
 	html=resp.read()	
 	
-	#response_headers = resp.info().items()
-	response_headers = [('Content-type', 'text/html')]
+	response_headers = resp.info().items()
+	#response_headers = [('Content-type', 'text/html')]
 	start_response(status, response_headers)
 
 	return [html]
