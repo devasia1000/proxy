@@ -22,7 +22,8 @@ def application(environ, start_response):
 	url=url[1:]
 	
 	try:
-		req=urllib2.Request("http://"+url, None, request.headers)
+		#Passing request headers doesn't seem to work, get URL without passing request headers for now
+		#req=urllib2.Request("http://"+url, None, dict(request.headers))
 		resp=urllib2.urlopen(req)
 		html=resp.read()
 		
@@ -35,8 +36,9 @@ def application(environ, start_response):
 		return [str(html)]
 	
 	except:
-		error="Cannot load URL: http://"+url
+		error="ERROR\n\nCannot load URL: http://"+url
+		
 		response_headers = [('Content-Type', 'text/plain')]
 		start_response(status, response_headers)
-		return [error+"\n\n"+"Request Header for http://"+url+"\n\n"+str(request.headers)]
+		return [error+"\n\n"+"Request Header:\n\n"+str(request.headers)]
 		
