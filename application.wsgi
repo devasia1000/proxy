@@ -24,6 +24,7 @@ def application(environ, start_response):
 	try:
 		#Passing request headers doesn't seem to work, get URL without passing request headers for now
 		#req=urllib2.Request("http://"+url, None, dict(request.headers))
+		req=urllib2.Request("http://"+url)
 		resp=urllib2.urlopen(req)
 		html=resp.read()
 		
