@@ -13,6 +13,8 @@ def application(environ, start_response):
 			
 	status="200 OK"
 	
+	log("-----------------------------------------------------------------------------------------------------------\n")
+	
 	host_dict={"youtube.com" : "173.194.43.33"}
 	log("Contents of Host-to-IP dictionary:\n\n"+str(host_dict)+"\n\n")
 	
@@ -26,6 +28,7 @@ def application(environ, start_response):
 	#url=url[1:]
 	
 	request_dict=dict(request.headers)
+	log("Request Headers:\n\n"+str(request.headers)+"\n\n")
 	hostname=request_dict["Host"]
 	ip=host_dict[hostname]
 	log("Converted '"+hostname+"' to '"+ip+"'\n\n")
@@ -41,9 +44,10 @@ def application(environ, start_response):
 		req=urllib2.Request("http://"+ip)#, None, request_dict)	
 		resp=urllib2.urlopen(req)
 		html=resp.read()
-		log("Downloaded HTML:\n\n"+str(html)+"\n\n")
+		#log("Downloaded HTML:\n\n"+str(html)+"\n\n")
 		
 		d=dict(resp.headers)
+		log("Response Headers:\n\n"+str(resp.headers)+"\n\n")
 		if "transfer-encoding" in d:
 			del d["transfer-encoding"]
 			log("Removed 'transfer-encoding' in Response header")
